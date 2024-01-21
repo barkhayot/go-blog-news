@@ -1,0 +1,287 @@
+basePath: /api
+definitions:
+  models.Blog:
+    properties:
+      body:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    required:
+    - body
+    - title
+    type: object
+  models.News:
+    properties:
+      body:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    required:
+    - body
+    - title
+    type: object
+host: localhost 8080
+info:
+  contact: {}
+  description: A CRUD API for Blog and News
+  title: Blog and News API
+  version: "1.0"
+paths:
+  /blogs:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Blog'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Retrieve all blogs
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Blog object to be created
+        in: body
+        name: blog
+        required: true
+        schema:
+          $ref: '#/definitions/models.Blog'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "400":
+          description: Bad Reques
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new blog
+  /blogs/{id}:
+    delete:
+      parameters:
+      - description: Blog ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Blog deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Reques
+          schema:
+            type: string
+        "404":
+          description: not found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete a blog by ID
+    get:
+      parameters:
+      - description: Blog ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "400":
+          description: Bad Reques
+          schema:
+            type: string
+        "404":
+          description: not found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Retrieve a blog by ID
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Blog ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated blog data
+        in: body
+        name: blog
+        required: true
+        schema:
+          $ref: '#/definitions/models.Blog'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "400":
+          description: Bad Reques
+          schema:
+            type: string
+        "404":
+          description: not found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Update a blog by ID
+  /news:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.News'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Retrieve all news
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: News object to be created
+        in: body
+        name: news
+        required: true
+        schema:
+          $ref: '#/definitions/models.News'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.News'
+        "400":
+          description: 'Bad Request: Invalid request payload'
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Create a new news
+  /news/{id}:
+    delete:
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: News deleted successfully
+          schema:
+            type: string
+        "400":
+          description: 'Bad Request: Invalid UUID format for newsID'
+          schema:
+            type: string
+        "404":
+          description: News not found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete a news by ID
+    get:
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.News'
+        "400":
+          description: 'Bad Request: Invalid UUID format for newsID'
+          schema:
+            type: string
+        "404":
+          description: News not found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Retrieve a news by ID
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated news data
+        in: body
+        name: news
+        required: true
+        schema:
+          $ref: '#/definitions/models.News'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.News'
+        "400":
+          description: 'Bad Request: Invalid UUID format for newsID or Invalid request
+            payload'
+          schema:
+            type: string
+        "404":
+          description: News not found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Update a news by ID
+swagger: "2.0"
